@@ -3,12 +3,12 @@
 ## Using fslreorient2std
 ## in Aether, obtain final 60-90min recon nifti (e.g. with two-step single frame TAC recon)
 
-setenv SUBJECT_ID WADG77N_PBR28
-setenv SUBJECT_RECON WAD_PBR_SUV_60-90
-setenv SUBJECTS_DIR /autofs/cluster/hookerlab/collaborators/PBR/Rosas/PBR/FS/subjects
+setenv SUBJECT_ID HC004_PBR28
+setenv SUBJECT_RECON HC004_PBR28_Realigned
+setenv SUBJECTS_DIR /autofs/cluster/sperling/UserSpace/clois/Marco_HD/Processed_data/FS/subjects
 setenv SUBJECT_DIR ${SUBJECTS_DIR}/${SUBJECT_ID}
-setenv DESTINATION_DIR /autofs/cluster/hookerlab/Users/Cristina/Huntington_Corrected/PBR/PET_onto_standard/${SUBJECT_ID}/PET-2-standard
-setenv ORIGIN_DIR /autofs/cluster/hookerlab/Users/Cristina/Huntington_Corrected/PBR/PET/${SUBJECT_ID}
+setenv DESTINATION_DIR /autofs/cluster/sperling/UserSpace/clois/Marco_HD/Processed_data/PET/${SUBJECT_ID}/PET-2-standard
+setenv ORIGIN_DIR /autofs/cluster/sperling/UserSpace/clois/Marco_HD/Processed_data/PET/${SUBJECT_ID}
 
 # Make dir for this subject, copy the nifti file there, and move to that directory
 mkdir -p ${DESTINATION_DIR}
@@ -16,7 +16,10 @@ cp ${ORIGIN_DIR}/${SUBJECT_RECON}.nii ${DESTINATION_DIR}/${SUBJECT_RECON}.nii
 cd ${DESTINATION_DIR}
 
 ##compute transformation matrix for linear registration of SUV with fs T1, with spm
-spmregister --mov ${SUBJECT_RECON}.nii --s ${SUBJECT_ID} --reg SUV.lin_T1.dat --fsvol orig
+#spmregister --mov ${SUBJECT_RECON}.nii --s ${SUBJECT_ID} --reg SUV.lin_T1.dat --fsvol orig
+
+#Spmregister failed for HC004 -- used instead:
+#bbregister --s ${SUBJECT_ID} --mov ${SUBJECT_RECON}.nii --reg SUV.lin_T1.dat --t1
  
 ##to CHECK REGISTRATION 
 tkregister2 --mov ${SUBJECT_RECON}.nii --targ ${SUBJECT_DIR}/mri/orig.mgz --reg SUV.lin_T1.dat --surf orig
