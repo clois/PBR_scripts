@@ -19,7 +19,7 @@ cd ${DESTINATION_DIR}
 #spmregister --mov ${SUBJECT_RECON}.nii --s ${SUBJECT_ID} --reg SUV.lin_T1.dat --fsvol orig
 
 #Spmregister failed for HC004 -- used instead:
-#bbregister --s ${SUBJECT_ID} --mov ${SUBJECT_RECON}.nii --reg SUV.lin_T1.dat --t1
+bbregister --s ${SUBJECT_ID} --mov ${SUBJECT_RECON}.nii --reg SUV.lin_T1.dat --t1
  
 ##to CHECK REGISTRATION 
 tkregister2 --mov ${SUBJECT_RECON}.nii --targ ${SUBJECT_DIR}/mri/orig.mgz --reg SUV.lin_T1.dat --surf orig
